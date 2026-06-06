@@ -239,3 +239,131 @@ img {
     grid-template-columns: 1fr !important;
   }
 }
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 50, 74, 0.55);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1000;
+  animation: modal-fade 240ms ease forwards;
+}
+
+.modal-panel {
+  width: min(96vw, 540px);
+  max-height: calc(100vh - 64px);
+  overflow: auto;
+  border-radius: var(--r-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-3);
+  position: relative;
+  padding: 28px;
+  animation: modal-pop 260ms ease forwards;
+}
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  border: none;
+  background: transparent;
+  color: var(--fg3);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-sm);
+}
+
+.modal-form {
+  display: grid;
+  gap: 16px;
+}
+
+.modal-form label {
+  display: grid;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--fg2);
+}
+
+.modal-form input,
+.modal-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg-raised);
+  color: var(--fg1);
+  font: inherit;
+  padding: 12px 14px;
+}
+
+.modal-form input:focus,
+.modal-form textarea:focus {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.modal-success,
+.modal-error {
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  font-family: var(--font-body);
+  font-size: 15px;
+}
+
+.modal-success {
+  background: var(--ok-tint);
+  color: var(--petrol-700);
+}
+
+.modal-error {
+  background: var(--error-tint);
+  color: var(--error);
+}
+
+.btn {
+  border: none;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  font: inherit;
+  padding: 0 18px;
+  min-height: 48px;
+}
+
+.btn-primary {
+  background: var(--petrol-700);
+  color: var(--paper-50);
+}
+
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+@keyframes modal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-pop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

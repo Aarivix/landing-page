@@ -181,7 +181,7 @@ function useCountUp(target, { start, duration = 1100, decimals = 0, enabled = tr
 
 const WRAP = { maxWidth: 1180, margin: '0 auto', padding: '0 32px', width: '100%', boxSizing: 'border-box' };
 
-function Nav({ theme, onToggleTheme }) {
+function Nav({ theme, onToggleTheme, onBookDemo }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -224,7 +224,15 @@ function Nav({ theme, onToggleTheme }) {
       }}
     >
       <div style={{ ...WRAP, height: 64, display: 'flex', alignItems: 'center', gap: 28 }}>
-        <a href="#" onClick={(e) => e.preventDefault()} style={{ display: 'flex', alignItems: 'center', gap: 9, textDecoration: 'none' }}>
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          aria-label="Aarivix — back to top"
+          style={{ display: 'flex', alignItems: 'center', gap: 9, textDecoration: 'none' }}
+        >
           <img src="/assets/aarivix-mark.webp" alt="Aarivix" style={{ height: 26 }} />
           <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 19, color: 'var(--fg1)', letterSpacing: '-0.01em' }}>
             Aarivix
@@ -266,10 +274,7 @@ function Nav({ theme, onToggleTheme }) {
           >
             <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={17} />
           </button>
-          <a href="#" onClick={(e) => e.preventDefault()} className="nav-signin" style={{ fontFamily: 'var(--font-display)', fontSize: 14.5, fontWeight: 500, color: 'var(--fg1)', textDecoration: 'none' }}>
-            Sign in
-          </a>
-          <Btn variant={theme === 'dark' ? 'signal' : 'primary'} size="sm" iconRight="arrow-right" className="nav-cta">
+          <Btn variant={theme === 'dark' ? 'signal' : 'primary'} size="sm" iconRight="arrow-right" className="nav-cta" onClick={onBookDemo}>
             Book a demo
           </Btn>
           <button
@@ -318,7 +323,7 @@ function Nav({ theme, onToggleTheme }) {
             ))}
           </div>
           <div style={{ marginTop: 16 }}>
-            <Btn variant={theme === 'dark' ? 'signal' : 'primary'} size="md" iconRight="arrow-right" style={{ width: '100%' }}>
+            <Btn variant={theme === 'dark' ? 'signal' : 'primary'} size="md" iconRight="arrow-right" style={{ width: '100%' }} onClick={onBookDemo}>
               Book a demo
             </Btn>
           </div>
@@ -328,15 +333,14 @@ function Nav({ theme, onToggleTheme }) {
   );
 }
 
-function ProductShot({ theme = 'light' }) {
-  const dark = theme === 'dark';
-  const src = dark ? '/assets/hero-product-dark.webp' : '/assets/hero-product-light.webp';
+function ProductShot() {
+  const src = '/assets/hero-product-light.webp';
   return (
     <div
       style={{
         borderRadius: 'var(--r-lg)',
         overflow: 'hidden',
-        background: dark ? '#062A3D' : '#FFFFFF',
+        background: '#FFFFFF',
         border: '1px solid var(--line-strong)',
         boxShadow: 'var(--shadow-3)'
       }}
@@ -344,7 +348,7 @@ function ProductShot({ theme = 'light' }) {
       <div
         style={{
           height: 38,
-          background: dark ? '#04202F' : 'var(--bg-sunken)',
+          background: 'var(--bg-sunken)',
           borderBottom: '1px solid var(--line)',
           display: 'flex',
           alignItems: 'center',
@@ -364,7 +368,7 @@ function ProductShot({ theme = 'light' }) {
             margin: '0 auto',
             height: 23,
             borderRadius: 'var(--r-sm)',
-            background: dark ? '#062A3D' : 'var(--surface)',
+            background: 'var(--surface)',
             border: '1px solid var(--line)',
             display: 'flex',
             alignItems: 'center',
@@ -385,8 +389,7 @@ function ProductShot({ theme = 'light' }) {
   );
 }
 
-function Hero({ heroLayout = 'split', motion = true, theme = 'light' }) {
-  const stacked = heroLayout === 'stacked';
+function Hero({ motion = true, onBookDemo }) {
   return (
     <section style={{ position: 'relative', overflow: 'hidden' }}>
       <div
@@ -396,9 +399,7 @@ function Hero({ heroLayout = 'split', motion = true, theme = 'light' }) {
           inset: 0,
           backgroundImage: 'linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px)',
           backgroundSize: '32px 32px',
-          maskImage: stacked
-            ? 'radial-gradient(120% 80% at 50% 0%, #000 45%, transparent 80%)'
-            : 'radial-gradient(120% 90% at 72% 0%, #000 40%, transparent 85%)'
+          maskImage: 'radial-gradient(120% 90% at 72% 0%, #000 40%, transparent 85%)'
         }}
       />
       <div
@@ -408,14 +409,14 @@ function Hero({ heroLayout = 'split', motion = true, theme = 'light' }) {
           paddingTop: 72,
           paddingBottom: 64,
           display: 'grid',
-          gridTemplateColumns: stacked ? '1fr' : '0.95fr 1.15fr',
-          gap: stacked ? 48 : 46,
+          gridTemplateColumns: '0.95fr 1.15fr',
+          gap: 46,
           alignItems: 'center',
-          textAlign: stacked ? 'center' : 'left'
+          textAlign: 'left'
         }}
         className="hero-grid"
       >
-        <div style={{ maxWidth: stacked ? 760 : 'none', margin: stacked ? '0 auto' : 0 }}>
+        <div>
           <div
             style={{
               display: 'inline-flex',
@@ -442,7 +443,7 @@ function Hero({ heroLayout = 'split', motion = true, theme = 'light' }) {
               NEW
             </span>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg2)', letterSpacing: '0.02em' }}>
-              Compare every flight, milestone to milestone
+              Compare every capture, milestone to milestone
             </span>
           </div>
           <h1
@@ -457,7 +458,7 @@ function Hero({ heroLayout = 'split', motion = true, theme = 'light' }) {
               margin: '20px 0 0'
             }}
           >
-            See exactly how your site drifts from the plan — to the millimeter.
+            See exactly where your project stands against the plan.
           </h1>
           <p
             className="hero-sub"
@@ -467,28 +468,16 @@ function Hero({ heroLayout = 'split', motion = true, theme = 'light' }) {
               lineHeight: 1.55,
               color: 'var(--fg2)',
               margin: '22px 0 0',
-              maxWidth: 540,
-              marginInline: stacked ? 'auto' : 0
+              maxWidth: 540
             }}
           >
-            Aarivix turns every drone flight into a measured reality model — orthomosaic,
-            terrain and point cloud — aligned to your design and tracked across every
-            milestone. The objective source of truth for your site.
+            Aarivix turns each site capture — by drone or 360 camera — into a measured
+            reality model, aligned to your design and tracked across every milestone.
+            One objective source of truth for developers and project managers.
           </p>
-          <div
-            style={{
-              display: 'flex',
-              gap: 12,
-              marginTop: 30,
-              justifyContent: stacked ? 'center' : 'flex-start',
-              flexWrap: 'wrap'
-            }}
-          >
-            <Btn variant="primary" size="lg" iconRight="arrow-right">
+          <div style={{ display: 'flex', gap: 12, marginTop: 30, flexWrap: 'wrap' }}>
+            <Btn variant="primary" size="lg" iconRight="arrow-right" onClick={onBookDemo}>
               Book a demo
-            </Btn>
-            <Btn variant="secondary" size="lg" icon="play">
-              See a sample report
             </Btn>
           </div>
           <div
@@ -498,21 +487,20 @@ function Hero({ heroLayout = 'split', motion = true, theme = 'light' }) {
               gap: 14,
               marginTop: 28,
               flexWrap: 'wrap',
-              justifyContent: stacked ? 'center' : 'flex-start',
               fontFamily: 'var(--font-mono)',
               fontSize: 12,
               color: 'var(--fg3)'
             }}
           >
-            {['±3 mm tolerance', 'LiDAR + photogrammetry', 'Orthomosaic · DSM · contours'].map((item, index) => (
+            {['Independent verification', 'Drone & 360 capture', 'Milestone audit trail'].map((item, index) => (
               <span key={item} style={{ paddingLeft: index ? 14 : 0, borderLeft: index ? '1px solid var(--line-strong)' : 'none' }}>
                 {item}
               </span>
             ))}
           </div>
         </div>
-        <div style={{ maxWidth: stacked ? 1040 : 'none', margin: stacked ? '0 auto' : 0, width: '100%' }}>
-          <ProductShot theme={theme} />
+        <div style={{ width: '100%' }}>
+          <ProductShot />
         </div>
       </div>
     </section>
@@ -557,22 +545,22 @@ function HowItWorks({ motion = true }) {
         n: '01',
         icon: 'scan-line',
         eyebrow: 'Capture',
-        title: 'Capture the site from the air',
-        body: 'Fly the site by drone or scan it with LiDAR. Aarivix turns thousands of overlapping images into a measured orthomosaic, terrain model and point cloud, registered to your control points.'
+        title: 'Capture the site, any way you can reach it',
+        body: 'Fly it by drone or walk it with a 360 camera. Aarivix turns the capture into a measured orthomosaic, terrain model and point cloud — registered to your control points — for open ground, interiors and vertical structures alike.'
       },
       {
         n: '02',
         icon: 'layers',
         eyebrow: 'Align',
         title: 'Align reality to the design',
-        body: 'Aarivix locks each capture to your as-designed plan and to earlier flights — one shared coordinate frame — so every bench, surface and structure is compared like-for-like.'
+        body: 'Aarivix locks each capture to your as-designed plan and to earlier captures — one shared coordinate frame — so every bench, surface and structure is compared like-for-like.'
       },
       {
         n: '03',
         icon: 'flag',
         eyebrow: 'Flag',
         title: 'Measure what changed, flag what’s off',
-        body: 'Volumes, levels and deviations are computed automatically. Every element outside tolerance is flagged with a signed figure and a clear audit trail — ready to report.'
+        body: 'Volumes, levels and deviations are computed automatically. Every change from the plan is flagged with a signed figure and a clear audit trail — ready to drop into a progress or payment report.'
       }
     ],
     []
@@ -593,10 +581,10 @@ function HowItWorks({ motion = true }) {
             lineHeight: 1.06
           }}
         >
-          Capture, align, flag. Three steps from flight to source of truth.
+          Capture, align, flag. Three steps from site to source of truth.
         </h2>
         <p style={{ fontFamily: 'var(--font-body)', fontSize: 18, lineHeight: 1.55, color: 'var(--fg2)', margin: '16px 0 0' }}>
-          No more guesswork between site visits. Aarivix turns every flight into a measured,
+          No more guesswork between site visits. Aarivix turns every capture into a measured,
           versioned record of exactly how your site stands.
         </p>
       </div>
@@ -684,10 +672,10 @@ function MetricStat({ stat, seen, motion }) {
 function MetricBand({ seen, motion = true }) {
   const stats = useMemo(
     () => [
-      { target: 3, pre: '± ', unit: ' mm', label: 'Verified tolerance, site-wide' },
-      { target: 98.6, decimals: 1, unit: '%', label: 'Median within-tolerance rate' },
-      { target: 4, unit: ' hrs', label: 'From flight to aligned model' },
-      { target: 52.4, decimals: 1, unit: ' ha', label: 'Mapped per flight' }
+      { target: 2, unit: '', label: 'Capture methods — drone & 360' },
+      { target: 100, unit: '%', label: 'Captures registered to your control points' },
+      { target: 4, unit: ' hrs', label: 'From capture to aligned model' },
+      { target: 52.4, decimals: 1, unit: ' ha', label: 'Mapped per capture' }
     ],
     []
   );
@@ -713,154 +701,108 @@ function MetricBand({ seen, motion = true }) {
   );
 }
 
-function MiniViz({ kind }) {
-  return (
-    <div
-      style={{
-        position: 'relative',
-        borderRadius: 'var(--r-lg)',
-        overflow: 'hidden',
-        background: '#04202F',
-        aspectRatio: '16 / 11',
-        border: '1px solid rgba(174,208,201,0.18)',
-        boxShadow: 'var(--shadow-2)'
-      }}
-    >
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: 'linear-gradient(rgba(174,208,201,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(174,208,201,0.09) 1px, transparent 1px)',
-          backgroundSize: '26px 26px'
-        }}
-      />
-      <svg viewBox="0 0 640 440" preserveAspectRatio="xMidYMid meet" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
-        {kind === 'capture' && (
-          <g>
-            <g stroke="#6BA6C0" strokeWidth="2" fill="none">
-              <rect x="70" y="60" width="500" height="320" />
-              <line x1="320" y1="60" x2="320" y2="250" />
-            </g>
-            {Array.from({ length: 130 }).map((_, i) => {
-              const x = 80 + ((i * 91) % 480);
-              const y = 70 + ((i * 53) % 300);
-              return <circle key={i} cx={x} cy={y} r="1.6" fill="#AED0C9" opacity={0.4 + ((i * 0.13) % 0.5)} />;
-            })}
-          </g>
-        )}
-        {kind === 'align' && (
-          <g fill="none" strokeLinecap="square">
-            <g stroke="#6BA6C0" strokeWidth="2">
-              <rect x="80" y="70" width="480" height="300" />
-              <line x1="320" y1="70" x2="320" y2="370" />
-            </g>
-            <g stroke="#F3F2EA" strokeWidth="2" opacity="0.85" transform="translate(10,7)">
-              <rect x="80" y="70" width="480" height="300" />
-              <line x1="320" y1="70" x2="320" y2="370" />
-            </g>
-            <line x1="320" y1="40" x2="320" y2="400" stroke="#FFFB08" strokeWidth="2" />
-          </g>
-        )}
-        {kind === 'flag' && (
-          <g>
-            <g stroke="#6BA6C0" strokeWidth="2" fill="none">
-              <rect x="80" y="70" width="480" height="300" />
-              <line x1="80" y1="220" x2="560" y2="220" />
-            </g>
-            <rect x="290" y="190" width="60" height="60" fill="none" stroke="#FFFB08" strokeWidth="3" />
-            <circle cx="320" cy="220" r="40" fill="none" stroke="#FFFB08" strokeWidth="1.5" opacity="0.5" />
-            <circle cx="180" cy="140" r="9" fill="#2F9E6B" stroke="#fff" strokeWidth="2" />
-            <circle cx="460" cy="300" r="9" fill="#E8A317" stroke="#fff" strokeWidth="2" />
-          </g>
-        )}
-      </svg>
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 12,
-          left: 14,
-          fontFamily: 'var(--font-mono)',
-          fontSize: 10.5,
-          letterSpacing: '0.06em',
-          color: 'var(--mint-500)',
-          textTransform: 'uppercase'
-        }}
-      >
-        {kind === 'capture' ? 'Point cloud · live' : kind === 'align' ? 'As-built ↔ as-designed' : 'Δ +8.3 mm · flagged'}
-      </div>
-    </div>
-  );
-}
-
 function Features() {
   const feats = useMemo(
     () => [
       {
-        kind: 'capture',
         step: '01',
         eyebrow: 'Capture',
         title: 'A measured reality model, not a flat photo.',
-        body: 'Fly with a drone or scan with LiDAR. Aarivix fuses the imagery into a dense, georeferenced point cloud and orthomosaic — registered to your site control points.',
-        points: ['Sub-centimeter point density', 'Auto-registered to control points', 'Orthomosaic, DSM & DTM outputs']
+        body: 'Capture by drone or 360 camera. Aarivix fuses imagery into a georeferenced point cloud and orthomosaic, then registers it to your site control points.',
+        points: ['Drone and 360 camera capture', 'Auto-registration to survey control', 'Orthomosaic, DSM and point cloud outputs']
       },
       {
-        kind: 'align',
         step: '02',
         eyebrow: 'Align',
-        title: 'As-built and as-designed, in one coordinate frame.',
-        body: 'Import IFC, DWG or your CAD design surface and Aarivix locks reality to intent — the same grid, the same datum — and versions it against every milestone.',
-        points: ['IFC / DWG / design-surface import', 'One shared coordinate frame', 'Versioned against every milestone']
+        title: 'Lock reality and design in one shared frame.',
+        body: 'Import IFC, DWG or your design surface, and Aarivix aligns every capture to the same project coordinate system for consistent milestone comparison.',
+        points: ['IFC / DWG / design-surface import', 'Shared coordinate frame across captures', 'Versioned milestone comparison']
       },
       {
-        kind: 'flag',
         step: '03',
         eyebrow: 'Flag',
-        title: 'Signed deviations and volumes, with an audit trail.',
-        body: 'Cut-and-fill volumes, level checks and position deviations are computed for you. Everything outside tolerance is flagged with a signed Δ and a one-click QA report.',
-        points: ['Signed Δ with tolerance band', 'Cut / fill volume & level checks', 'One-click QA/QC report']
+        title: 'Signed deviations, volumes and QA-ready reports.',
+        body: 'Aarivix computes cut / fill volumes, level checks and off-plan deviations automatically, with a clear audit trail for progress and payment decisions.',
+        points: ['Signed Δ with tolerance band', 'Volume and level checks', 'QA/QC reporting ready']
       }
     ],
     []
   );
 
   return (
-    <section id="features" style={{ ...WRAP, padding: '84px 32px 24px', display: 'flex', flexDirection: 'column', gap: 80 }}>
-      {feats.map((feature, index) => (
-        <div key={feature.step} className="feature-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'center' }}>
-          <div style={{ order: index % 2 === 1 ? 2 : 1 }} className="feature-copy">
+    <section id="features" style={{ ...WRAP, padding: '84px 32px 24px' }}>
+      <div style={{ maxWidth: 680, marginBottom: 44 }}>
+        <Eyebrow>Platform</Eyebrow>
+        <h2
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 38,
+            fontWeight: 600,
+            letterSpacing: '-0.025em',
+            color: 'var(--fg1)',
+            margin: '14px 0 0',
+            lineHeight: 1.08
+          }}
+        >
+          One platform for capture, alignment and site-quality decisions.
+        </h2>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: 18, lineHeight: 1.6, color: 'var(--fg2)', margin: '18px 0 0' }}>
+          Aarivix removes manual site checks and delivers the one objective record every team can trust — from drone flight to deviation report.
+        </p>
+      </div>
+      <div style={{ display: 'grid', gap: 24 }}>
+        {feats.map((feature) => (
+          <div
+            key={feature.step}
+            style={{
+              borderRadius: 'var(--r-lg)',
+              border: '1px solid var(--line)',
+              background: 'var(--bg-raised)',
+              padding: '32px',
+              boxShadow: 'var(--shadow-1)'
+            }}
+          >
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--info)', fontWeight: 500 }}>{feature.step}</span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: 13,
+                  color: 'var(--info)',
+                  fontWeight: 500,
+                  minWidth: 44
+                }}
+              >
+                {feature.step}
+              </span>
               <Eyebrow style={{ color: 'var(--fg3)' }}>{feature.eyebrow}</Eyebrow>
             </div>
-            <h2
+            <h3
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 32,
+                fontSize: 28,
                 fontWeight: 600,
                 letterSpacing: '-0.02em',
                 color: 'var(--fg1)',
-                margin: '12px 0 0',
-                lineHeight: 1.12
+                margin: '16px 0 0',
+                lineHeight: 1.2
               }}
             >
               {feature.title}
-            </h2>
-            <p style={{ fontFamily: 'var(--font-body)', fontSize: 17, lineHeight: 1.6, color: 'var(--fg2)', margin: '16px 0 0' }}>{feature.body}</p>
-            <ul style={{ listStyle: 'none', padding: 0, margin: '22px 0 0', display: 'flex', flexDirection: 'column', gap: 11 }}>
+            </h3>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: 16.5, lineHeight: 1.7, color: 'var(--fg2)', margin: '16px 0 0' }}>
+              {feature.body}
+            </p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: '22px 0 0', display: 'grid', gap: 10 }}>
               {feature.points.map((point) => (
-                <li key={point} style={{ display: 'flex', alignItems: 'center', gap: 11, fontFamily: 'var(--font-body)', fontSize: 15, color: 'var(--fg1)' }}>
-                  <Icon name="check" size={17} color="var(--ok)" />
-                  {point}
+                <li key={point} style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-body)', fontSize: 15, color: 'var(--fg1)' }}>
+                  <Icon name="check" size={18} color="var(--ok)" />
+                  <span>{point}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <div style={{ order: index % 2 === 1 ? 1 : 2 }} className="feature-viz">
-            <MiniViz kind={feature.kind} />
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 }
@@ -901,11 +843,11 @@ function FAQ() {
     () => [
       {
         q: 'How accurate is the survey?',
-        a: 'Aarivix verifies to ±3 mm site-wide when captured against established ground control points. Every deviation is reported as a signed figure with its tolerance band, so you see not just that something moved, but exactly how far and in which direction.'
+        a: 'Aarivix produces a survey-grade reality model, registered to your established ground control points. Every deviation from the plan is reported as a signed figure with its tolerance band — so you, your PMC and your contractor see not just that something moved, but how far and in which direction. One independent record everyone works from.'
       },
       {
         q: 'What capture hardware do we need?',
-        a: 'Any survey-grade drone or LiDAR scanner. Aarivix is hardware-agnostic — it ingests imagery and point clouds, registers them to your control points, and builds the reality model regardless of the aircraft or scanner you flew.'
+        a: 'A survey-grade drone or a 360 camera — whatever suits the site. Aarivix is hardware-agnostic: it ingests the imagery, registers it to your control points, and builds the reality model regardless of how the site was captured. Drone for open ground, 360 camera for interiors and vertical structures.'
       },
       {
         q: 'Which design formats can I align against?',
@@ -913,7 +855,7 @@ function FAQ() {
       },
       {
         q: 'How long does it take to get a report?',
-        a: 'Roughly four hours from flight to an aligned reality model for a typical site. From there a QA report — flagged deviations, cut/fill volumes and level checks with a full audit trail — is one click away.'
+        a: 'Roughly four hours from capture to an aligned reality model for a typical site. From there a progress or payment report — flagged deviations, cut/fill volumes and level checks with a full audit trail — is one click away.'
       },
       {
         q: 'Is our site data secure?',
@@ -942,11 +884,8 @@ function FAQ() {
             Questions, measured answers.
           </h2>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: 16.5, lineHeight: 1.55, color: 'var(--fg2)', margin: '16px 0 0' }}>
-            Everything teams ask before their first flight. Still curious?
+            Everything developers and project managers ask before their first capture.
           </p>
-          <a href="#" onClick={(e) => e.preventDefault()} style={{ display: 'inline-flex', alignItems: 'center', gap: 7, marginTop: 14, fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 500, color: 'var(--fg1)', textDecoration: 'none' }}>
-            Talk to an engineer <Icon name="arrow-right" size={16} />
-          </a>
         </div>
         <div>
           {items.map((item, index) => (
@@ -958,7 +897,7 @@ function FAQ() {
   );
 }
 
-function CTABand() {
+function CTABand({ onBookDemo }) {
   return (
     <section style={{ ...WRAP, padding: '80px 32px 88px' }}>
       <div
@@ -1007,15 +946,12 @@ function CTABand() {
             Stop guessing between site visits. Measure the site.
           </h2>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: 18, lineHeight: 1.6, color: 'var(--petrol-200)', margin: '16px 0 30px', maxWidth: 560 }}>
-            Bring an objective source of truth to your next milestone. See a sample deviation
-            and volume report run on one of your own sites.
+            Bring one objective source of truth to your next milestone — the record you, your
+            PMC and your contractor all work from.
           </p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <Btn variant="signal" size="lg" iconRight="arrow-right">
+            <Btn variant="signal" size="lg" iconRight="arrow-right" onClick={onBookDemo}>
               Book a demo
-            </Btn>
-            <Btn variant="onDarkGhost" size="lg">
-              Talk to an engineer
             </Btn>
           </div>
         </div>
@@ -1025,59 +961,123 @@ function CTABand() {
 }
 
 function Footer() {
-  const cols = useMemo(
-    () => [
-      { h: 'Platform', items: ['Capture', 'Align', 'Deviations', 'Volumes', 'Reports'] },
-      { h: 'Industries', items: ['Earthworks & quarries', 'Mining & aggregates', 'Infrastructure', 'Construction'] },
-      { h: 'Company', items: ['About', 'Careers', 'Security', 'Contact'] }
-    ],
-    []
-  );
-
   return (
     <footer style={{ borderTop: '1px solid var(--line)', background: 'var(--bg-raised)' }}>
-      <div className="footer-grid" style={{ ...WRAP, padding: '52px 32px 36px', display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 1fr', gap: 40 }}>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <img src="/assets/aarivix-mark.webp" alt="Aarivix" style={{ height: 28 }} />
-            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 19, color: 'var(--fg1)' }}>Aarivix</span>
-          </div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11.5, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--fg3)', marginTop: 12 }}>
-            Reality, Measured.
-          </div>
-          <p style={{ fontFamily: 'var(--font-body)', fontSize: 13.5, color: 'var(--fg2)', marginTop: 14, maxWidth: 280, lineHeight: 1.5 }}>
-            The objective source of truth for your site.
-          </p>
+      <div style={{ ...WRAP, padding: '52px 32px 40px', display: 'grid', gap: 28 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <img src="/assets/aarivix-mark.webp" alt="Aarivix" style={{ height: 28 }} />
+          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 19, color: 'var(--fg1)' }}>Aarivix</span>
         </div>
-        {cols.map((col) => (
-          <div key={col.h}>
-            <h4 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 600, marginBottom: 18, color: 'var(--fg1)' }}>{col.h}</h4>
-            <div style={{ display: 'grid', gap: 12 }}>
-              {col.items.map((item) => (
-                <a key={item} href="#" onClick={(e) => e.preventDefault()} style={{ fontFamily: 'var(--font-body)', fontSize: 15, color: 'var(--fg2)', textDecoration: 'none' }}>
-                  {item}
-                </a>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-      <div style={{ ...WRAP, padding: '24px 32px 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16, color: 'var(--fg3)', fontFamily: 'var(--font-body)', fontSize: 14 }}>
-        <span>© 2026 Aarivix. All rights reserved.</span>
-        <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap' }}>
-          <a href="#" onClick={(e) => e.preventDefault()} style={{ color: 'var(--fg3)', textDecoration: 'none' }}>Privacy</a>
-          <a href="#" onClick={(e) => e.preventDefault()} style={{ color: 'var(--fg3)', textDecoration: 'none' }}>Terms</a>
+        <p style={{ maxWidth: 520, fontFamily: 'var(--font-body)', fontSize: 15, lineHeight: 1.7, color: 'var(--fg2)' }}>
+          Aarivix brings the objective record of site progress to your team — from capture through deviation verification and milestone reporting.
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, color: 'var(--fg3)', fontFamily: 'var(--font-body)', fontSize: 14 }}>
+          <span>hello@aarivix.com</span>
+          <span>© 2026 Aarivix.</span>
         </div>
       </div>
     </footer>
   );
 }
 
+function DemoModal({ open, onClose }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [company, setCompany] = useState('');
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState('idle');
+  const [error, setError] = useState('');
+
+  const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError('');
+    if (!accessKey) {
+      setError('Web3Forms access key is not configured. Please set NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY in .env.local.');
+      setStatus('error');
+      return;
+    }
+
+    setStatus('submitting');
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: 'Aarivix demo request',
+          name,
+          email,
+          message,
+          data: { company }
+        })
+      });
+
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({}));
+        throw new Error(payload.message || 'Unable to submit request.');
+      }
+
+      setStatus('success');
+      setName('');
+      setEmail('');
+      setCompany('');
+      setMessage('');
+    } catch (err) {
+      setError(err.message || 'Something went wrong.');
+      setStatus('error');
+    }
+  };
+
+  if (!open) return null;
+
+  return (
+    <div className="modal-backdrop" role="dialog" aria-modal="true" onClick={onClose}>
+      <div className="modal-panel" onClick={(event) => event.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} aria-label="Close demo request form">
+          <Icon name="x" size={18} />
+        </button>
+        <div style={{ marginBottom: 18 }}>
+          <Eyebrow style={{ color: 'var(--mint-500)' }}>Book a demo</Eyebrow>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 600, color: 'var(--fg1)', margin: '12px 0 0', lineHeight: 1.1 }}>
+            Tell us about your project and we’ll schedule a walkthrough.
+          </h2>
+        </div>
+        <form className="modal-form" onSubmit={handleSubmit}>
+          <label>
+            Name
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+          </label>
+          <label>
+            Email
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          </label>
+          <label>
+            Company
+            <input value={company} onChange={(e) => setCompany(e.target.value)} />
+          </label>
+          <label>
+            Project details
+            <textarea rows={4} value={message} onChange={(e) => setMessage(e.target.value)} required />
+          </label>
+          {status === 'success' && <div className="modal-success">Thanks! We’ll be in touch soon.</div>}
+          {error && <div className="modal-error">{error}</div>}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 18 }}>
+            <button type="submit" className="btn btn-primary" disabled={status === 'submitting'}>
+              {status === 'submitting' ? 'Sending…' : 'Send request'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [theme, setTheme] = useState('light');
-  const [heroLayout] = useState('split');
   const [motion] = useState(true);
-  const [showTrust] = useState(true);
+  const [demoOpen, setDemoOpen] = useState(false);
 
   useEffect(() => {
     try {
@@ -1102,17 +1102,19 @@ export default function Home() {
   }, [theme]);
 
   const toggleTheme = () => setTheme((value) => (value === 'dark' ? 'light' : 'dark'));
+  const onBookDemo = () => setDemoOpen(true);
 
   return (
     <div id="scrollroot">
-      <Nav theme={theme} onToggleTheme={toggleTheme} />
-      <Hero heroLayout={heroLayout} motion={motion} theme={theme} />
-      {showTrust && <TrustStrip />}
+      <Nav theme={theme} onToggleTheme={toggleTheme} onBookDemo={onBookDemo} />
+      <Hero motion={motion} onBookDemo={onBookDemo} />
+      <TrustStrip />
       <HowItWorks motion={motion} />
       <Features />
       <FAQ />
-      <CTABand />
+      <CTABand onBookDemo={onBookDemo} />
       <Footer />
+      <DemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
     </div>
   );
 }
