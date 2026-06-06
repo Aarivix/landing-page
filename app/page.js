@@ -198,8 +198,6 @@ function Nav({ theme, onToggleTheme, onBookDemo }) {
   const links = useMemo(
     () => [
       ['Platform', '#how'],
-      ['How it works', '#how'],
-      ['Features', '#features'],
       ['FAQ', '#faq']
     ],
     []
@@ -701,112 +699,6 @@ function MetricBand({ seen, motion = true }) {
   );
 }
 
-function Features() {
-  const feats = useMemo(
-    () => [
-      {
-        step: '01',
-        eyebrow: 'Capture',
-        title: 'A measured reality model, not a flat photo.',
-        body: 'Capture by drone or 360 camera. Aarivix fuses imagery into a georeferenced point cloud and orthomosaic, then registers it to your site control points.',
-        points: ['Drone and 360 camera capture', 'Auto-registration to survey control', 'Orthomosaic, DSM and point cloud outputs']
-      },
-      {
-        step: '02',
-        eyebrow: 'Align',
-        title: 'Lock reality and design in one shared frame.',
-        body: 'Import IFC, DWG or your design surface, and Aarivix aligns every capture to the same project coordinate system for consistent milestone comparison.',
-        points: ['IFC / DWG / design-surface import', 'Shared coordinate frame across captures', 'Versioned milestone comparison']
-      },
-      {
-        step: '03',
-        eyebrow: 'Flag',
-        title: 'Signed deviations, volumes and QA-ready reports.',
-        body: 'Aarivix computes cut / fill volumes, level checks and off-plan deviations automatically, with a clear audit trail for progress and payment decisions.',
-        points: ['Signed Δ with tolerance band', 'Volume and level checks', 'QA/QC reporting ready']
-      }
-    ],
-    []
-  );
-
-  return (
-    <section id="features" style={{ ...WRAP, padding: '84px 32px 24px' }}>
-      <div style={{ maxWidth: 680, marginBottom: 44 }}>
-        <Eyebrow>Platform</Eyebrow>
-        <h2
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 38,
-            fontWeight: 600,
-            letterSpacing: '-0.025em',
-            color: 'var(--fg1)',
-            margin: '14px 0 0',
-            lineHeight: 1.08
-          }}
-        >
-          One platform for capture, alignment and site-quality decisions.
-        </h2>
-        <p style={{ fontFamily: 'var(--font-body)', fontSize: 18, lineHeight: 1.6, color: 'var(--fg2)', margin: '18px 0 0' }}>
-          Aarivix removes manual site checks and delivers the one objective record every team can trust — from drone flight to deviation report.
-        </p>
-      </div>
-      <div style={{ display: 'grid', gap: 24 }}>
-        {feats.map((feature) => (
-          <div
-            key={feature.step}
-            style={{
-              borderRadius: 'var(--r-lg)',
-              border: '1px solid var(--line)',
-              background: 'var(--bg-raised)',
-              padding: '32px',
-              boxShadow: 'var(--shadow-1)'
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 13,
-                  color: 'var(--info)',
-                  fontWeight: 500,
-                  minWidth: 44
-                }}
-              >
-                {feature.step}
-              </span>
-              <Eyebrow style={{ color: 'var(--fg3)' }}>{feature.eyebrow}</Eyebrow>
-            </div>
-            <h3
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 28,
-                fontWeight: 600,
-                letterSpacing: '-0.02em',
-                color: 'var(--fg1)',
-                margin: '16px 0 0',
-                lineHeight: 1.2
-              }}
-            >
-              {feature.title}
-            </h3>
-            <p style={{ fontFamily: 'var(--font-body)', fontSize: 16.5, lineHeight: 1.7, color: 'var(--fg2)', margin: '16px 0 0' }}>
-              {feature.body}
-            </p>
-            <ul style={{ listStyle: 'none', padding: 0, margin: '22px 0 0', display: 'grid', gap: 10 }}>
-              {feature.points.map((point) => (
-                <li key={point} style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-body)', fontSize: 15, color: 'var(--fg1)' }}>
-                  <Icon name="check" size={18} color="var(--ok)" />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 function FAQItem({ q, a, open, onClick }) {
   return (
     <div style={{ borderBottom: '1px solid var(--line)' }}>
@@ -1110,7 +1002,6 @@ export default function Home() {
       <Hero motion={motion} onBookDemo={onBookDemo} />
       <TrustStrip />
       <HowItWorks motion={motion} />
-      <Features />
       <FAQ />
       <CTABand onBookDemo={onBookDemo} />
       <Footer />

@@ -19,7 +19,7 @@ No lint, no tests, no `next.config.*`. Vercel builds via `vercel.json` (`@vercel
 
 ## Architecture — read this before editing
 
-**The entire live site is one file: [app/page.js](app/page.js)** (~1100 lines, `'use client'`). It defines every component inline (`Nav`, `Hero`, `ProductShot`, `HowItWorks`, `MetricBand`, `Features`, `FAQ`, `CTABand`, `Footer`) and exports `Home` as the default. Styling is **inline `style={{}}` objects** referencing CSS custom properties — no Tailwind, no CSS modules, no component imports.
+**The entire live site is one file: [app/page.js](app/page.js)** (~1000 lines, `'use client'`). It defines every component inline (`Nav`, `Hero`, `ProductShot`, `HowItWorks`, `MetricBand`, `FAQ`, `CTABand`, `Footer`) and exports `Home` as the default. Styling is **inline `style={{}}` objects** referencing CSS custom properties — no Tailwind, no CSS modules, no component imports.
 
 - [app/globals.css](app/globals.css) — the design system. All colors, type, radii, shadows live here as CSS vars (`--petrol-*`, `--mint-*`, `--paper-*`, `--signal-*`, `--fg1/2/3`, `--surface`, `--line`, `--r-sm/md/lg`, `--shadow-*`). **Change design tokens here, not in page.js.**
 - [app/layout.js](app/layout.js) — minimal root layout, imports globals, sets `<html lang="en">`.
