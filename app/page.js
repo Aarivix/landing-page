@@ -508,7 +508,7 @@ function Hero({ motion = true, onBookDemo }) {
 }
 
 function TrustStrip() {
-  const names = ['MERIDIAN AEC', 'HARBOURWORKS', 'NORTHQUAY', 'STRUKTON', 'VANTAGE BUILD', 'GROUNDLINE'];
+  const names = ['SHEVI CONSTRUCTION'];
   return (
     <section style={{ borderTop: '1px solid var(--line)', borderBottom: '1px solid var(--line)', background: 'var(--bg-raised)' }}>
       <div
@@ -972,7 +972,7 @@ function Footer() {
           Aarivix brings the objective record of site progress to your team — from capture through deviation verification and milestone reporting.
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, color: 'var(--fg3)', fontFamily: 'var(--font-body)', fontSize: 14 }}>
-          <span>hello@aarivix.com</span>
+          <span>aarivix.tech@gmail.com</span>
           <span>© 2026 Aarivix.</span>
         </div>
       </div>
