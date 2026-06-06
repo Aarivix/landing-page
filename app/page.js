@@ -225,7 +225,7 @@ function Nav({ theme, onToggleTheme }) {
     >
       <div style={{ ...WRAP, height: 64, display: 'flex', alignItems: 'center', gap: 28 }}>
         <a href="#" onClick={(e) => e.preventDefault()} style={{ display: 'flex', alignItems: 'center', gap: 9, textDecoration: 'none' }}>
-          <img src="/assets/aarivix-mark.png" alt="Aarivix" style={{ height: 26 }} />
+          <img src="/assets/aarivix-mark.webp" alt="Aarivix" style={{ height: 26 }} />
           <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 19, color: 'var(--fg1)', letterSpacing: '-0.01em' }}>
             Aarivix
           </span>
@@ -330,7 +330,7 @@ function Nav({ theme, onToggleTheme }) {
 
 function ProductShot({ theme = 'light' }) {
   const dark = theme === 'dark';
-  const src = dark ? '/assets/hero-product-dark.png' : '/assets/hero-product-light.png';
+  const src = dark ? '/assets/hero-product-dark.webp' : '/assets/hero-product-light.webp';
   return (
     <div
       style={{
@@ -1039,7 +1039,7 @@ function Footer() {
       <div className="footer-grid" style={{ ...WRAP, padding: '52px 32px 36px', display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 1fr', gap: 40 }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <img src="/assets/aarivix-mark.png" alt="Aarivix" style={{ height: 28 }} />
+            <img src="/assets/aarivix-mark.webp" alt="Aarivix" style={{ height: 28 }} />
             <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 19, color: 'var(--fg1)' }}>Aarivix</span>
           </div>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11.5, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--fg3)', marginTop: 12 }}>
